@@ -66,7 +66,7 @@ angular.module('jobs').controller('JobsController', ['$scope', '$stateParams', '
 
 		// Check for permissions
 		$scope.hasPermission = function(user) {
-			return _.indexOf(user.roles, 'admin') > -1
+			return _.indexOf(user.roles, 'admin') > -1;
 		};
 	}
 ]);

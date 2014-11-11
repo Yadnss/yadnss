@@ -100,7 +100,7 @@ exports.jobByID = function(req, res, next, id) {
  * Job authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (_.indexOf(req.user.roles, 'admin') == -1) {
+	if (_.indexOf(req.user.roles, 'admin') === -1) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();
