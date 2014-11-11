@@ -1,0 +1,28 @@
+<section data-ng-controller="JobsController" data-ng-init="findOne()">
+	<div class="page-header">
+		<h1>
+			{{ job.name }}
+			<div class="pull-right" data-ng-show="hasPermission(authentication.user)">
+				<a class="btn btn-primary" href="/#!/jobs/{{job._id}}/edit">
+					<span class="glyphicon glyphicon-edit"></span>
+				</a>
+				<a class="btn btn-primary" data-ng-click="remove();">
+					<span class="glyphicon glyphicon-trash"></span>
+				</a>
+			</div>
+		</h1>
+	</div>
+	<div class="form-horizontal">
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Name</label>
+			<p class="col-sm-10 form-control-static">{{ job.name }}</p>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Parent</label>
+			<p class="col-sm-10 form-control-static" ng-if="parent">
+				<a href="/#!/jobs/{{parent._id}}">{{ parent.name }}</a>
+			</p>
+			<p class="col-sm-10 form-control-static" ng-if="!parent">None</p>
+		</div>
+	</div>
+</section>
