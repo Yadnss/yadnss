@@ -22,4 +22,10 @@ var JobSchema = new Schema({
 	}
 });
 
-mongoose.model('Job', JobSchema);
+var Job = mongoose.model('Job', JobSchema);
+
+// Cascade delete children
+JobSchema.pre('remove', function(next) {
+	Job.remove({parent: this._id}).exec();
+	next();
+});
