@@ -9,6 +9,16 @@ A collection of tools for generating static assets for Yadnss.
 Use this to generate self-signed ssl certs for the site. Just run the script
 and follow the prompts.
 
+## adduser.js
+-------------
+
+An interactive prompt for adding users to the database
+
+Usage:
+```
+node adduser.js
+```
+
 ## extract_files.py
 -------------------
 
