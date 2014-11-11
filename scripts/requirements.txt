@@ -1,0 +1,3 @@
+-e git+https://github.com/yadnss/dnestpy.git@78f44eb1d660ff2adea96e88a429296d59f38a7d#egg=dnestpy-origin/master
+pathlib==1.0.1
+pymongo==2.7.2
