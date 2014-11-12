@@ -84,6 +84,16 @@ describe('Job Model Unit Tests:', function() {
 				});
 			});
 		});
+
+		it('should automatically calculate the job tier', function(done) {
+			job.save(function() {
+				child.save(function() {
+					job.tier.should.be.exactly(0);
+					child.tier.should.be.exactly(1);
+					done();
+				});
+			});
+		});
 	});
 
 	afterEach(function(done) { 

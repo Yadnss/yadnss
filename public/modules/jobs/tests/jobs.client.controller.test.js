@@ -123,6 +123,28 @@
 			expect(scope.parent).toEqualData(parentJob);
 		}));
 
+		it('$scope.findTier() sohuld fetch Jobs if necessary', inject(function(Jobs) {
+			// Define a sample Job object
+			var sampleJob = new Jobs({
+				_id: '525a8422f6d0f87f0e407a33',
+				name: 'New Job',
+				parent: '525a8422f6d0f87f0e407a34',
+				tier: 1
+			}),
+				parentJob = new Jobs({
+				_id: '525a8422f6d0f87f0e407a34',
+				name: 'Parent Job',
+				tier: 0
+			});
+
+			// Mock scope
+			scope.jobs = [sampleJob, parentJob];
+
+			// Run controller
+			expect(scope.findTier(parentJob._id)).toEqual(0);
+			expect(scope.findTier(sampleJob._id)).toEqual(1);
+		}));
+
 		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Jobs) {
 			// Create a sample Job object
 			var sampleJobPostData = new Jobs({

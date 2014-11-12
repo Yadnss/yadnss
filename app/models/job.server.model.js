@@ -19,10 +19,21 @@ var JobSchema = new Schema({
 	parent: {
 		type: Schema.ObjectId,
 		ref: 'Job'
+	},
+	tier: {
+		type: Number
 	}
 });
 
 var Job = mongoose.model('Job', JobSchema);
+
+// automatically set tier count
+JobSchema.pre('save', function(next) {
+	this.populate({ path: 'parent', select: 'tier' }, function(err, job) {
+		job.tier = job.parent ? job.parent.tier + 1 : 0;
+		next();
+	});
+});
 
 // Cascade delete children
 JobSchema.pre('remove', function(next) {

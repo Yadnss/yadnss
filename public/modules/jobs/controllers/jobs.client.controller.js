@@ -64,6 +64,12 @@ angular.module('jobs').controller('JobsController', ['$scope', '$stateParams', '
 			});
 		};
 
+		// Check tier of job by id
+		$scope.findTier = function(jobId) {
+			var job = _.find($scope.jobs, {_id: jobId});
+			return job ? job.tier : 0;
+		};
+
 		// Check for permissions
 		$scope.hasPermission = function(user) {
 			return _.indexOf(user.roles, 'admin') > -1;
