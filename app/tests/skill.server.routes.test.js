@@ -171,7 +171,7 @@ describe('Skill CRUD tests', function() {
 			});
 	});
 
-	it.only('should be able to update Skill instance if signed in', function(done) {
+	it('should be able to update Skill instance if signed in', function(done) {
 		agent.post('/auth/signin')
 			.send(acred)
 			.expect(200)
