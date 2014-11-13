@@ -1,0 +1,13 @@
+<section data-ng-controller="JobsController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Jobs</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="job in jobs" data-ng-href="#!/jobs/{{job._id}}" class="list-group-item">
+            <h4 class="list-group-item-header">{{ job.name }}</h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!jobs.$resolved || jobs.length">
+        No Jobs yet, why don't you <a href="/#!/jobs/create">create one</a>?
+    </div>
+</section>

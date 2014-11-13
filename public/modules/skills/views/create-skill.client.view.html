@@ -1,0 +1,93 @@
+<section data-ng-controller="SkillsController" data-ng-init="find(); findJobs()">
+	<div class="page-header">
+		<h1>New Skill</h1>
+	</div>
+	<div class="col-md-12">
+		<form class="form-horizontal" data-ng-submit="create()" novalidate>
+			<fieldset>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="name">Name</label>
+					<div class="col-sm-10 controls">
+						<input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="name">Job</label>
+					<div class="col-sm-10 controls">
+						<select data-ng-model="job" id="job" class="form-control" data-ng-options="j._id as j.name for j in jobs" required></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="name">Description</label>
+					<div class="col-sm-10 controls">
+						<textarea data-ng-model="description" id="description" class="form-control" rows="5" placeholder="Description">
+						</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="name">Required Skills</label>
+					<div class="col-sm-10">
+						<button type="button" class="btn btn-success" data-ng-click="addRequisite(required_skills)">
+							<span class="glyphicon glyphicon-plus"></span> Add Skill
+						</button>
+					</div>
+				</div>
+				<div class="form-group" data-ng-repeat="required_skill in required_skills">
+					<div class="col-sm-8 col-sm-offset-2">
+						<select data-ng-model="required_skill.skill._id" class="form-control" data-ng-options="s._id as s.name for s in skills" required></select>
+					</div>
+					<div class="col-sm-1">
+						<input type="number" data-ng-model="required_skill.level" class="form-control" required></input>
+					</div>
+					<div class="col-sm-1">
+						<button type="button" class="btn btn-danger" data-ng-click="removeRequisite(required_skills, required_skill)">
+							<span class="glyphicon glyphicon-remove-circle"></span>
+						</button>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Required SP</label>
+					<div class="col-sm-10">
+						<div class="row">
+							<div class="col-sm-4 controls">
+								<input type="number" data-ng-model="required_sp[0]" class="form-control"></input>
+							</div>
+							<div class="col-sm-4 controls">
+								<input type="number" data-ng-model="required_sp[1]" class="form-control"></input>
+							</div>
+							<div class="col-sm-4 controls">
+								<input type="number" data-ng-model="required_sp[2]" class="form-control"></input>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="iconindex">Icon Index</label>
+					<div class="col-sm-10 controls">
+						<input type="number" data-ng-model="icon_index" id="iconindex" class="form-control"></input>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="treeindex">Tree Index</label>
+					<div class="col-sm-10 controls">
+						<input type="number" data-ng-model="tree_index" id="treeindex" class="form-control"></input>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="ultimate">Ultimate</label>
+					<div class="col-sm-10">
+						<div class="checkbox">
+							<label><input type="checkbox" data-ng-model="ultimate" id="ultimate"></input></label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="submit" class="btn btn-default"/>
+				</div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</section>
