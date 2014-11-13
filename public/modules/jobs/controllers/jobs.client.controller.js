@@ -10,7 +10,7 @@ angular.module('jobs').controller('JobsController', ['$scope', '$stateParams', '
 			// Create new Job object
 			var job = new Jobs ({
 				name: this.name,
-				parent: this.parent
+				parent: this.parent ? this.parent._id : null
 			});
 
 			// Redirect after save
@@ -19,6 +19,7 @@ angular.module('jobs').controller('JobsController', ['$scope', '$stateParams', '
 
 				// Clear form fields
 				$scope.name = '';
+				$scope.parent = null;
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -40,6 +41,8 @@ angular.module('jobs').controller('JobsController', ['$scope', '$stateParams', '
 		// Update existing Job
 		$scope.update = function() {
 			var job = $scope.job;
+			job.parent = job.parent ? job.parent._id : null;
+			console.log(job);
 
 			job.$update(function() {
 				$location.path('jobs/' + job._id);
@@ -57,17 +60,7 @@ angular.module('jobs').controller('JobsController', ['$scope', '$stateParams', '
 		$scope.findOne = function() {
 			$scope.job = Jobs.get({ 
 				jobId: $stateParams.jobId
-			}, function() {
-				$scope.parent = $scope.job.parent ?
-								Jobs.get({ jobId: $scope.job.parent }) :
-								null;
 			});
-		};
-
-		// Check tier of job by id
-		$scope.findTier = function(jobId) {
-			var job = _.find($scope.jobs, {_id: jobId});
-			return job ? job.tier : 0;
 		};
 
 		// Check for permissions

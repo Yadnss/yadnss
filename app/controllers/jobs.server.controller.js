@@ -73,27 +73,32 @@ exports.delete = function(req, res) {
  * List of Jobs
  */
 exports.list = function(req, res) { 
-	Job.find().sort('-created').populate('user', 'displayName').exec(function(err, jobs) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(jobs);
-		}
-	});
+	Job.find()
+		.sort('name')
+		.populate('parent', 'name tier')
+		.exec(function(err, jobs) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(jobs);
+			}
+		});
 };
 
 /**
  * Job middleware
  */
 exports.jobByID = function(req, res, next, id) { 
-	Job.findById(id).populate('user', 'displayName').exec(function(err, job) {
-		if (err) return next(err);
-		if (! job) return next(new Error('Failed to load Job ' + id));
-		req.job = job ;
-		next();
-	});
+	Job.findById(id)
+		.populate('parent', 'name tier')
+		.exec(function(err, job) {
+			if (err) return next(err);
+			if (! job) return next(new Error('Failed to load Job ' + id));
+			req.job = job ;
+			next();
+		});
 };
 
 /**

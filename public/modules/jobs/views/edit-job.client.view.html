@@ -16,7 +16,7 @@
                 <div class="form-group">
                     <label class="control-label" for="name">Parent</label>
                     <div class="controls">
-                        <select data-ng-model="job.parent" id="parent" class="form-control" data-ng-options="j._id as j.name for j in jobs">
+                        <select data-ng-model="job.parent" id="parent" class="form-control" data-ng-options="j as j.name for j in jobs track by j._id">
                             <option value="">None</option>
                         </select>
                     </div>
@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <label class="control-label" for="name">Tier</label>
                     <div class="controls">
-                        <p class="form-control-static">{{ job.parent ? findTier(job.parent) + 1 : job.tier }}</p>
+                        <p class="form-control-static">{{ job.parent ? job.parent.tier + 1 : job.tier }}</p>
                     </div>
                 </div>
                 <div class="form-group">

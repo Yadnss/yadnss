@@ -75,10 +75,6 @@
 			var sampleJob = new Jobs({
 				_id: '525a8422f6d0f87f0e407a33',
 				name: 'New Job'
-			}),
-				parentJob = new Jobs({
-				_id: '525a8422f6d0f87f0e407a33',
-				name: 'Parent Job'
 			});
 
 			// Set the URL parameter
@@ -95,70 +91,23 @@
 			expect(scope.job).toEqualData(sampleJob);
 		}));
 
-		it('$scope.findOne() should fetch parent Job objects', inject(function(Jobs) {
-			// Define a sample Job object
-			var sampleJob = new Jobs({
-				_id: '525a8422f6d0f87f0e407a33',
-				name: 'New Job',
-				parent: '525a8422f6d0f87f0e407a34'
-			}),
-				parentJob = new Jobs({
-				_id: '525a8422f6d0f87f0e407a34',
-				name: 'Parent Job'
-			});
-
-			// Set the URL parameter
-			$stateParams.jobId = '525a8422f6d0f87f0e407a33';
-
-			// Set GET response
-			$httpBackend.expectGET('jobs/525a8422f6d0f87f0e407a33').respond(sampleJob);
-			$httpBackend.expectGET('jobs/525a8422f6d0f87f0e407a34').respond(parentJob);
-
-			// Run controller functionality
-			scope.findOne();
-			$httpBackend.flush();
-
-			// Test scope value
-			expect(scope.job).toEqualData(sampleJob);
-			expect(scope.parent).toEqualData(parentJob);
-		}));
-
-		it('$scope.findTier() sohuld fetch Jobs if necessary', inject(function(Jobs) {
-			// Define a sample Job object
-			var sampleJob = new Jobs({
-				_id: '525a8422f6d0f87f0e407a33',
-				name: 'New Job',
-				parent: '525a8422f6d0f87f0e407a34',
-				tier: 1
-			}),
-				parentJob = new Jobs({
-				_id: '525a8422f6d0f87f0e407a34',
-				name: 'Parent Job',
-				tier: 0
-			});
-
-			// Mock scope
-			scope.jobs = [sampleJob, parentJob];
-
-			// Run controller
-			expect(scope.findTier(parentJob._id)).toEqual(0);
-			expect(scope.findTier(sampleJob._id)).toEqual(1);
-		}));
-
 		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Jobs) {
 			// Create a sample Job object
 			var sampleJobPostData = new Jobs({
-				name: 'New Job'
+				name: 'New Job',
+				parent: '525cf20451979dea2c000002'
 			});
 
 			// Create a sample Job response
 			var sampleJobResponse = new Jobs({
 				_id: '525cf20451979dea2c000001',
-				name: 'New Job'
+				name: 'New Job',
+				parent: '525cf20451979dea2c000002'
 			});
 
 			// Fixture mock form input values
 			scope.name = 'New Job';
+			scope.parent = {_id: '525cf20451979dea2c000002'};
 
 			// Set POST response
 			$httpBackend.expectPOST('jobs', sampleJobPostData).respond(sampleJobResponse);
@@ -169,6 +118,7 @@
 
 			// Test form inputs are reset
 			expect(scope.name).toEqual('');
+			expect(scope.parent).toBe(null);
 
 			// Test URL redirection after the Job was created
 			expect($location.path()).toBe('/jobs/' + sampleJobResponse._id);

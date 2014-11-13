@@ -54,7 +54,7 @@ describe('Job CRUD tests', function() {
 		// Save users to the test db and create new Job
 		user.save();
 		admin.save();
-		job = { name: 'Job Name' };
+		job = { name: 'Job Name', tier: 1 };
 
 		done();
 	});
@@ -308,6 +308,25 @@ describe('Job CRUD tests', function() {
 				done(jobDeleteErr);
 			});
 
+		});
+	});
+
+	it('should populate parent job with name and tier', function(done) {
+		var jobObj = new Job(job);
+		jobObj.save(function() {
+			var subJobObj = new Job({
+				name: 'Sub Job',
+				parent: jobObj
+			});
+			subJobObj.save(function() {
+				request(app).get('/jobs/' + subJobObj._id)
+				.expect(200)
+				.end(function(getErr, getRes) {
+					(getRes.body.parent).should.be.an.Object.with.property('_id', jobObj._id.toString());
+					(getRes.body.parent).should.have.property('tier', 0);
+					done();
+				});
+			});
 		});
 	});
 
