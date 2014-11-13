@@ -1,0 +1,13 @@
+<section data-ng-controller="SkillsController" data-ng-init="find()">
+	<div class="page-header">
+		<h1>Skills</h1>
+	</div>
+	<div class="list-group">
+		<a data-ng-repeat="skill in skills" data-ng-href="#!/skills/{{skill._id}}" class="list-group-item">
+			<h4 class="list-group-item-heading">{{ skill.job.name }} : {{ skill.name }}</h4>
+		</a>
+	</div>
+	<div class="alert alert-warning text-center" data-ng-hide="!skills.$resolved || skills.length">
+		No Skills yet, why don't you <a href="/#!/skills/create">create one</a>?
+	</div>
+</section>
