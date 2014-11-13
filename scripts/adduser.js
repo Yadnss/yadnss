@@ -69,7 +69,12 @@ inquirer.prompt([
 		type: "input",
 		message: "Email",
 		name: "email",
-		validate: validate_input("email")
+		validate: function(input) {
+			if (input.match(/.+\@.+\..+/)) {
+				return true;
+			}
+			return "Not a valid email address"
+		}
 	}, {
 		type: "input",
 		message: "First Name",
@@ -88,7 +93,8 @@ inquirer.prompt([
 ], function(res) {
 	res.provider = 'local';
 	res.roles = res.admin ? ['user', 'admin'] : ['user'];
-	User(res).save(function() {
+	User(res).save(function(err, user) {
+		if (err) console.log(err);
 		mongoose.disconnect();
 	});
 });
