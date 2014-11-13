@@ -287,6 +287,25 @@ describe('Skill CRUD tests', function() {
 		});
 	});
 
+	it('should populate related jobs and required skills when retrieving a skill', function(done) {
+		var skillObj = new Skill(skill);
+		skillObj.save(function() {
+			subskill.required_skills[0].skill = skillObj;
+			var subSkillObj = new Skill(subskill);
+			subSkillObj.save(function() {
+				request(app).get('/skills/' + subSkillObj._id)
+				.expect(200)
+				.end(function(getErr, getRes) {
+					var resSkill = getRes.body;
+					(resSkill.job).should.be.an.Object.with.property('_id', job._id.toString());
+					(resSkill.required_skills).should.be.an.Array.with.length(1);
+					(resSkill.required_skills[0].skill).should.be.an.Object.with.property('_id', skillObj._id.toString());
+					done();
+				});
+			});
+		});
+	});
+
 	afterEach(function(done) {
 		User.remove().exec();
 		Job.remove().exec();
