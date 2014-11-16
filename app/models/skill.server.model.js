@@ -8,6 +8,33 @@ var mongoose = require('mongoose'),
 	Skill;
 
 /**
+ * SLevel (Skill Level) Schema
+ */
+var SLevelSchema = new Schema({
+	character_level: {
+		type: Number
+	},
+	mp_cost: {
+		pve: Number,
+		pvp: Number
+	},
+	cooldown: {
+		pve: Number,
+		pvp: Number
+	},
+	description_params: {
+		pve: String,
+		pvp: String
+	},
+	sp_cost: {
+		type: Number
+	},
+	sp_cost_cumulative: {
+		type: Number
+	}
+});
+
+/**
  * Skill Schema
  */
 var SkillSchema = new Schema({
@@ -26,6 +53,7 @@ var SkillSchema = new Schema({
 		type: String,
 		default: ''
 	},
+	levels: [SLevelSchema],
 	required_skills: [{
 		skill: {
 			type: Schema.ObjectId,
