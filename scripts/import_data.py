@@ -84,6 +84,9 @@ for row in DNTFile('./extract/skilltable_character.dnt').rows:
 # dict of skillId: skillObj
 skills = {s['skillId']: s for s in db.skills.find()}
 
+# remove skillId field, its unneeded
+db.skills.update({}, {'$unset': {'skillId': ''}}, multi=True)
+
 # read more skill info from skilltreetable
 for row in DNTFile('./extract/skilltreetable.dnt').rows:
     try:
@@ -111,7 +114,7 @@ for row in DNTFile('./extract/skilltreetable.dnt').rows:
 
 # Read and organize skilllevels into temporary dict
 slevels = defaultdict(lambda: defaultdict(list))
-for p in Path('./extract').glob('skillleveltable_charactercleric.dnt'):
+for p in Path('./extract').glob('skillleveltable_character*.dnt'):
     for row in DNTFile(p).rows:
         slevels[row.SkillIndex][row.SkillLevel].append(row)
 
@@ -121,7 +124,6 @@ for p in Path('./extract').glob('skillleveltable_charactercleric.dnt'):
 #     pvp?1:0      skillId    level
 # We can be sure that for any paired pve/pvp skilllevel entries
 # the pvp level has the higher id
-binstr = lambda x: '{:b}'.format(x)
 for k, v in slevels.items():
     try:
         skill = skills[k]
