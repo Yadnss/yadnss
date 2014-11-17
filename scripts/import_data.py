@@ -95,8 +95,8 @@ for row in DNTFile('./extract/skilltreetable.dnt').rows:
         continue
 
     # parse requisite skills
+    required_skills = []
     for n in range(1, 4):
-        required_skills = []
         try:
             parent = skills[getattr(row, 'ParentSkillID{}'.format(n))]['_id']
             level = getattr(row, 'NeedParentSkillLevel{}'.format(n))
