@@ -5,7 +5,8 @@
  */
 var should = require('should'),
 	mongoose = require('mongoose'),
-	Job = mongoose.model('Job');
+	Job = mongoose.model('Job'),
+	Skill = mongoose.model('Skill');
 
 /**
  * Globals
@@ -67,6 +68,22 @@ describe('Job Model Unit Tests:', function() {
 			});
 		});
 
+		it('should remove related skills when deleted', function(done) {
+			job.save(function() {
+				var skill = new Skill({ name: 'Skill', job: job });
+				skill.save(function() {
+					job.remove(function(err) {
+						should.not.exist(err);
+						Skill.find({}, function(err, skills) {
+							should.not.exist(err);
+							skills.should.have.length(0);
+							done();
+						});
+					});
+				});
+			});
+		});
+
 		it('should not remove parents when deleted', function(done) {
 			// Save parent and child
 			job.save(function() {
@@ -98,6 +115,7 @@ describe('Job Model Unit Tests:', function() {
 
 	afterEach(function(done) { 
 		Job.remove().exec();
+		Skill.remove().exec();
 
 		done();
 	});

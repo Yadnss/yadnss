@@ -35,8 +35,11 @@ JobSchema.pre('save', function(next) {
 	});
 });
 
-// Cascade delete children
 JobSchema.pre('remove', function(next) {
+	// Delete related skills
+	mongoose.model('Skill').remove({job: this._id}).exec();
+
+	// Cascade delete children
 	Job.remove({parent: this._id}).exec();
 	next();
 });
