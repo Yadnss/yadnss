@@ -1,4 +1,61 @@
 <section data-ng-controller="SkillSimulatorController" data-ng-init="find()">
-    <div class="col-md-12">
+    <div class="row">
+
+      <!-- Middle column -->
+      <div class="col-sm-4 col-sm-push-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">Main content</div>
+          <div class="panel-body">Some content</div>
+        </div>
+      </div>
+
+      <!-- Left column -->
+      <div class="col-sm-4 col-sm-pull-4">
+
+        <!-- Character Level Input -->
+        <div class="panel input-group">
+          <span class="input-group-addon">Level</span>
+          <input class="form-control" type="text"/>
+          <span class="input-group-btn">
+            <button class="btn btn-default level" type="button" title="Go">Go</button>
+          </span>
+        </div>
+
+        <!-- SP Panel -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            SP Total
+            <span class="badge pull-right">1/10</span>
+          </div>
+          <div class="panel-body">
+            Tier 0 <span class="badge pull-right">1/10</span></br>
+            Tier 1 <span class="badge pull-right">1/10</span></br>
+            Tier 2 <span class="badge pull-right">1/10</span></br>
+          </div>
+        </div>
+
+        <!-- Warnings Panel -->
+        <div class="panel panel-default">
+          <div class="panel-heading">Warnings</div>
+          <div class="panel-body">
+            Warnings
+          </div>
+        </div>
+      </div>
+
+    <!-- Right column -->
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Skill Info
+          <button class="btn btn-default btn-xs pull-right">PvE</button>
+        </div>
+
+        <div class="panel-body">
+          This is some random information
+        </div>
+      </div>
+    </div>
+
     </div>
 </section>
