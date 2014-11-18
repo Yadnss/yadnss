@@ -76,7 +76,7 @@ exports.list = function(req, res) {
 	var query = Skill.find();
 
 	if (req.query.jobIds) {
-		query = query.in('job', req.query.jobIds.split(';'));
+		query = query.in('job', _.filter(req.query.jobIds.split(';')));
 	}
 
 	query.sort('-_id')
