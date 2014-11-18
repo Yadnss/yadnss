@@ -10,11 +10,6 @@ angular.module('skills').factory('Skills', ['$resource',
 				method: 'GET',
 				isArray: true
 			},
-			getFull: {
-				method: 'GET',
-				isArray: true,
-				params: {'full': 1}
-			},
 			update: { method: 'PUT' }
 		});
 	}
