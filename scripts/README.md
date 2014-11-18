@@ -31,3 +31,13 @@ Usage:
 $ pip install requirements.txt
 $ python extract_files.py
 ```
+
+## import_data.py
+-----------------
+
+Generates mongo documents from extracted game data.
+
+## import_icons.js
+------------------
+
+Generates skill icons from extracted game data.
