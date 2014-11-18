@@ -230,8 +230,8 @@ describe('Skill CRUD tests', function() {
 						res.body.should.be.an.Array.with.length(2);
 						done();
 					});
-			})})});
-		})});
+			});});});
+		});});
 	});
 
 
