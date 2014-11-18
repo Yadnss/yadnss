@@ -73,8 +73,13 @@ exports.delete = function(req, res) {
  * List of Skills
  */
 exports.list = function(req, res) { 
-	Skill.find()
-		.sort('-_id')
+	var query = Skill.find();
+
+	if (req.query.jobIds) {
+		query = query.in('job', req.query.jobIds.split(';'));
+	}
+
+	query.sort('-_id')
 		.populate('job', 'name')
 		.populate('required_skills.skill', 'name')
 		.exec(function(err, skills) {
@@ -94,8 +99,7 @@ exports.list = function(req, res) {
 exports.skillByID = function(req, res, next, id) { 
 	Skill.findById(id)
 		.populate('job', 'name')
-		.populate('required_skills.skill', 'name')
-		.exec(function(err, skill) {
+		.populate('required_skills.skill', 'name').exec(function(err, skill) {
 			if (err) return next(err);
 			if (! skill) return next(new Error('Failed to load Skill ' + id));
 			req.skill = skill ;

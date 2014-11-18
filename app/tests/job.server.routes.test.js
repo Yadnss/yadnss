@@ -352,7 +352,7 @@ describe('Job CRUD tests', function() {
 					done();
 				});
 			});
-		})
+		});
 	});
 
 	afterEach(function(done) {

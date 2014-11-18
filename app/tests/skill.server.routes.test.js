@@ -215,6 +215,25 @@ describe('Skill CRUD tests', function() {
 		});
 	});
 
+	it('should filter Skills by jobIds if requested', function(done) {
+		var job2 = new Job({ name: 'Job2' }),
+			job3 = new Job({ name: 'Job3' });
+
+		job2.save(function() {job3.save(function() {
+			var skillObj = new Skill(skill),
+				skillObj2 = new Skill({ name: 'Skill2', job: job2._id }),
+				skillObj3 = new Skill({ name: 'Skill3', job: job3._id });
+			skillObj.save(function() {skillObj2.save(function() {skillObj3.save(function() {
+				request(app)
+					.get('/skills/?jobIds=' + job._id + ';' + job2._id)
+					.end(function(req, res) {
+						res.body.should.be.an.Array.with.length(2);
+						done();
+					});
+			})})});
+		})});
+	});
+
 
 	it('should be able to get a single Skill if not signed in', function(done) {
 		var skillObj = new Skill(skill);
