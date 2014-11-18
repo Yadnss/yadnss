@@ -15,22 +15,22 @@
         <!-- Character Level Input -->
         <div class="panel input-group">
           <span class="input-group-addon">Level</span>
-          <input class="form-control" type="text"/>
-          <span class="input-group-btn">
-            <button class="btn btn-default level" type="button" title="Go">Go</button>
-          </span>
+          <input class="form-control"
+            type="number"
+            data-ng-model="build.level"
+            data-ng-change="calc_sp_limit()"/>
         </div>
 
         <!-- SP Panel -->
         <div class="panel panel-default">
           <div class="panel-heading">
             SP Total
-            <span class="badge pull-right">1/10</span>
+            <span class="badge pull-right">0/{{ sp_total }}</span>
           </div>
           <div class="panel-body">
-            Tier 0 <span class="badge pull-right">1/10</span></br>
-            Tier 1 <span class="badge pull-right">1/10</span></br>
-            Tier 2 <span class="badge pull-right">1/10</span></br>
+            <span data-ng-repeat="job in jobs">
+              {{ job.name }} <span class="badge pull-right">0/{{ sp_limit[$index] }}</span></br>
+            </span>
           </div>
         </div>
 
