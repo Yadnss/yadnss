@@ -30,7 +30,22 @@ exports.create = function(req, res) {
  * Show the current Job
  */
 exports.read = function(req, res) {
-	res.jsonp(req.job);
+	var jobArr = [];
+	var getParent = function(err, job) {
+		jobArr[job.tier] = job;
+
+		if (err || !job.tier) {
+			res.jsonp(jobArr);
+		} else {
+			Job.findById(job.parent._id || job.parent).exec(getParent);
+		}
+	};
+
+	if (req.query.full) {
+		getParent(null, req.job);
+	} else {
+		res.jsonp([req.job]);
+	}
 };
 
 /**

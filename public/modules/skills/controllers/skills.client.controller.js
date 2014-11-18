@@ -98,8 +98,8 @@ angular.module('skills').controller('SkillsController', ['$scope', '$stateParams
 
 		// Find existing Skill and related job
 		$scope.findOne = function() {
-			$scope.skill = Skills.get({ 
-				skillId: $stateParams.skillId
+			Skills.get({ skillId: $stateParams.skillId }, function(data) {
+				$scope.skill = _.first(data);
 			});
 		};
 

@@ -30,7 +30,7 @@ exports.create = function(req, res) {
  * Show the current Skill
  */
 exports.read = function(req, res) {
-	res.jsonp(req.skill);
+	res.jsonp([req.skill]);
 };
 
 /**

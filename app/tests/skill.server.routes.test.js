@@ -221,7 +221,8 @@ describe('Skill CRUD tests', function() {
 		skillObj.save(function() {
 			request(app).get('/skills/' + skillObj._id)
 				.end(function(req, res) {
-					res.body.should.be.an.Object.with.property('name', skill.name);
+					res.body.should.be.an.Array.with.length(1);
+					res.body[0].should.be.an.Object.with.property('name', skill.name);
 					done();
 				});
 		});
@@ -296,7 +297,7 @@ describe('Skill CRUD tests', function() {
 				request(app).get('/skills/' + subSkillObj._id)
 				.expect(200)
 				.end(function(getErr, getRes) {
-					var resSkill = getRes.body;
+					var resSkill = getRes.body[0];
 					(resSkill.job).should.be.an.Object.with.property('_id', job._id.toString());
 					(resSkill.required_skills).should.be.an.Array.with.length(1);
 					(resSkill.required_skills[0].skill).should.be.an.Object.with.property('_id', skillObj._id.toString());

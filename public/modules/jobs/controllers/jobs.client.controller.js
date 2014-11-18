@@ -58,8 +58,8 @@ angular.module('jobs').controller('JobsController', ['$scope', '$stateParams', '
 
 		// Find existing Job
 		$scope.findOne = function() {
-			$scope.job = Jobs.get({ 
-				jobId: $stateParams.jobId
+			Jobs.get({ jobId: $stateParams.jobId }, function(data) {
+				$scope.job = _.first(data);
 			});
 		};
 

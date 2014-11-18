@@ -52,12 +52,8 @@
 
 		it('$scope.find() should create an array with at least one Job object fetched from XHR', inject(function(Jobs) {
 			// Create sample Job using the Jobs service
-			var sampleJob = new Jobs({
-				name: 'New Job'
-			});
-
-			// Create a sample Jobs array that includes the new Job
-			var sampleJobs = [sampleJob];
+			var sampleJob = new Jobs({ name: 'New Job' }),
+				sampleJobs = [sampleJob];
 
 			// Set GET response
 			$httpBackend.expectGET('jobs').respond(sampleJobs);
@@ -71,17 +67,14 @@
 		}));
 
 		it('$scope.findOne() should create an array with one Job object fetched from XHR using a jobId URL parameter', inject(function(Jobs) {
-			// Define a sample Job object
-			var sampleJob = new Jobs({
-				_id: '525a8422f6d0f87f0e407a33',
-				name: 'New Job'
-			});
+			var sampleJob = new Jobs({ _id: '525a8422f6d0f87f0e407a33', name: 'New Job' }),
+				sampleJobs = [sampleJob];
 
 			// Set the URL parameter
 			$stateParams.jobId = '525a8422f6d0f87f0e407a33';
 
 			// Set GET response
-			$httpBackend.expectGET(/jobs\/([0-9a-fA-F]{24})$/).respond(sampleJob);
+			$httpBackend.expectGET(/jobs\/([0-9a-fA-F]{24})$/).respond([sampleJob]);
 
 			// Run controller functionality
 			scope.findOne();

@@ -218,7 +218,8 @@ describe('Job CRUD tests', function() {
 			request(app).get('/jobs/' + jobObj._id)
 				.end(function(req, res) {
 					// Set assertion
-					res.body.should.be.an.Object.with.property('name', job.name);
+					res.body.should.be.an.Array.with.lengthOf(1);
+					res.body[0].should.be.an.Object.with.property('name', job.name);
 
 					// Call the assertion callback
 					done();
@@ -312,9 +313,11 @@ describe('Job CRUD tests', function() {
 	});
 
 	it('should populate parent job with name and tier', function(done) {
-		var jobObj = new Job(job);
+		var jobObj, subJobObj;
+
+		jobObj = new Job(job);
 		jobObj.save(function() {
-			var subJobObj = new Job({
+			subJobObj = new Job({
 				name: 'Sub Job',
 				parent: jobObj
 			});
@@ -322,12 +325,34 @@ describe('Job CRUD tests', function() {
 				request(app).get('/jobs/' + subJobObj._id)
 				.expect(200)
 				.end(function(getErr, getRes) {
-					(getRes.body.parent).should.be.an.Object.with.property('_id', jobObj._id.toString());
-					(getRes.body.parent).should.have.property('tier', 0);
+					(getRes.body[0].parent).should.be.an.Object.with.property('_id', jobObj._id.toString());
+					(getRes.body[0].parent).should.have.property('tier', 0);
 					done();
 				});
 			});
 		});
+	});
+
+	it('should return all parent jobs in tier order if requested with qs parameter full', function(done) {
+		var jobObj, subJobObj;
+
+		jobObj = new Job(job);
+		jobObj.save(function() {
+			subJobObj = new Job({
+				name: 'Sub Job',
+				parent: jobObj
+			});
+			subJobObj.save(function() {
+				request(app).get('/jobs/' + subJobObj._id + '?full=1')
+				.expect(200)
+				.end(function(getErr, getRes) {
+					getRes.body.should.be.an.Array.with.length(2);
+					getRes.body[0].should.be.an.Object.with.property('_id', jobObj._id.toString());
+					getRes.body[1].should.be.an.Object.with.property('_id', subJobObj._id.toString());
+					done();
+				});
+			});
+		})
 	});
 
 	afterEach(function(done) {

@@ -51,8 +51,8 @@
 		}));
 
 		it('$scope.find() should create an array with at least one Skill object fetched from XHR', inject(function(Skills) {
-			var sampleSkill = new Skills({ name: 'New Skill' });
-			var sampleSkills = [sampleSkill];
+			var sampleSkill = new Skills({ name: 'New Skill' }),
+				sampleSkills = [sampleSkill];
 
 			// Set GET response
 			$httpBackend.expectGET('skills').respond(sampleSkills);
@@ -67,13 +67,14 @@
 
 		it('$scope.findOne() should create an array with one Skill object fetched from XHR using a skillId URL parameter', inject(function(Skills) {
 			// Define a sample Skill object
-			var sampleSkill = new Skills({ name: 'New Skill' });
+			var sampleSkill = new Skills({ name: 'New Skill' }),
+				sampleSkills = [sampleSkill];
 
 			// Set the URL parameter
 			$stateParams.skillId = '525a8422f6d0f87f0e407a33';
 
 			// Set GET response
-			$httpBackend.expectGET(/skills\/([0-9a-fA-F]{24})$/).respond(sampleSkill);
+			$httpBackend.expectGET(/skills\/([0-9a-fA-F]{24})$/).respond(sampleSkills);
 
 			// Run controller functionality
 			scope.findOne();
