@@ -71,6 +71,7 @@
 
 			// Test scope value
 			expect(scope.jobs).toEqualData(sampleJobs);
+			expect(scope.build.job).toEqual(sampleJob2._id);
 			expect(scope.skills).toEqualData(sampleSkills);
 		}]));
 
