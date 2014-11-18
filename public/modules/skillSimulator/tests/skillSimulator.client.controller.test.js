@@ -75,5 +75,40 @@
 			expect(scope.skills).toEqualData(sampleSkills);
 		}]));
 
+		it('$scope.calc_sp_limit() should correctly calculate SP limits at different levels', function() {
+			var cases = [
+				{
+					jobs: [1],
+					build: { level: 13 },
+					sp_total: 36,
+					sp_limit: [36, 0, 0]
+				}, {
+					jobs: [1, 2],
+					build: { level: 20 },
+					sp_total: 57,
+					sp_limit: [35, 36, 35]
+				}, {
+					jobs: [1, 2],
+					build: { level: 42 },
+					sp_total: 123,
+					sp_limit: [76, 79, 76]
+				}, {
+					jobs: [1, 2, 3],
+					build: { level: 65 },
+					sp_total: 177,
+					sp_limit: [110, 114, 110]
+				}
+			];
+
+			_.forEach(cases, function(testCase) {
+				scope.jobs = testCase.jobs;
+				scope.build = testCase.build;
+				scope.calc_sp_limit();
+
+				expect(scope.sp_total).toEqual(testCase.sp_total);
+				expect(scope.sp_limit).toEqualData(testCase.sp_limit);
+			});
+		});
+
 	});
 }());
