@@ -22,8 +22,9 @@ angular.module('skillSimulator').directive('ydSkill', [
 			link: link,
 			restrict: 'E',
 			scope: {
-				sicon: '=sicon',
-				baseJob: '=baseJob'
+				active: '=active', /** currently active skill icon */
+				sicon: '=sicon', /** sicon model for this directive */
+				baseJob: '=baseJob' /** base job, needed to find icon sheet */
 			},
 			templateUrl: 'modules/skillSimulator/views/ydSkill.client.view.html'
 		};

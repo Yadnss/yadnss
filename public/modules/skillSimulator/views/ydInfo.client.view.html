@@ -1,0 +1,26 @@
+<span class="skill-info" ng-if="sicon">
+  <h2>{{ name }}</h2>
+  <p>Skill Level: {{ level }}</p>
+
+  <span ng-if="nxtlvl">
+    <hr/>
+    <p><span class="info-orange">SP Cost: </span><span class="info-default">{{ nxtlvl.sp_cost | number:0 }}</span></p>
+    <p><span class="info-orange">Required Level: </span><span class="info-default">{{ nxtlvl.character_level | number:0 }}</span></p>
+  </span>
+
+  <span ng-if="curlvl">
+    <hr/>
+    <h3>Current Level</h3>
+    <p><span class="info-orange">MP Cost: </span><span class="info-default">{{ curlvl.mp_cost[pve ? 'pve' : 'pvp'] | number:1 }}</span></p>
+    <p><span class="info-orange">Cooldown: </span><span class="info-default">{{ curlvl.cooldown[pve ? 'pve' : 'pvp'] | number:1 }}</span></p>
+    <png-bind-html="curdesc[pve]"></p>
+  </span>
+
+  <span ng-if="nxtlvl">
+    <hr/>
+    <h3>Next Level</h3>
+    <p><span class="info-orange">MP Cost: </span><span class="info-default">{{ nxtlvl.mp_cost[pve ? 'pve' : 'pvp'] | number:1 }}</span></p>
+    <p><span class="info-orange">Cooldown: </span><span class="info-default">{{ nxtlvl.cooldown[pve ? 'pve' : 'pvp'] | number:1 }}</span></p>
+    <p ng-bind-html="pve ? nxtdesc_pve : nxtdesc_pvp"></p>
+  </span>
+</span>

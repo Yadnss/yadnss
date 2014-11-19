@@ -7,7 +7,12 @@
           <accordion-group data-ng-repeat="job in jobs">
             <accordion-heading>{{ job.name }}</accordion-heading>
             <div class="skill-grid">
-              <yd-skill data-ng-repeat="sicon in sicons | filter:{ skill: { job: { _id: job._id } } }" data-sicon="sicon" data-base-job="jobs[0]"></yd-skill>
+              <yd-skill
+                data-ng-repeat="sicon in sicons | filter:{ skill: { job: { _id: job._id } } }"
+                data-sicon="sicon"
+                data-base-job="jobs[0]"
+                data-active="active">
+              </yd-skill>
             </div>
           </accordion-group>
         </accordion>
@@ -56,7 +61,7 @@
         </div>
 
         <div class="panel-body">
-          This is some random information
+          <yd-info data-sicon="active[0]" data-pve="pve"></yd-info>
         </div>
       </div>
     </div>

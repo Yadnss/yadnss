@@ -11,6 +11,16 @@ angular.module('skillSimulator').controller('SkillSimulatorController', ['$scope
 		$scope.pve = true;					/** switch to toggle pve/pvp info display */
 		$scope.sp_total = 187;				/** Amount of SP available to spend */
 		$scope.sp_limit = [116, 120, 116];	/** SP spending limit per tier */
+		$scope.active = [null];				/** Currently focused skill icon, must be an object or Array for scope binding */
+		$scope.skill_info = '';				/** html for skill info panel */
+
+		$scope.calc_skill_info = function() {
+			// Generate the info panel for the given skill icon
+			var sicon = $scope.active[0];
+			if (!sicon) { return null; }
+
+			$scope.skill_info = sicon.skill.name;
+		};
 
 		$scope.calc_sp_limit = function() {
 			// SP spending limit per class, taken from jobtable.dnt
@@ -50,7 +60,7 @@ angular.module('skillSimulator').controller('SkillSimulatorController', ['$scope
 				Skills.get({ jobIds: jobIds }, function(skills) {
 					// Make models for the skillicon directives
 					$scope.sicons = _.map(skills, function(skill) {
-						return { skill: skill,level: 0, active: false };
+						return { skill: skill, level: 0 };
 					});
 
 					// Sort sicons by job then tree index
@@ -71,5 +81,9 @@ angular.module('skillSimulator').controller('SkillSimulatorController', ['$scope
 				});
 			});
 		};
+
+		$scope.$watch('active[0]', function() {
+			$scope.calc_skill_info();
+		});
 	}
 ]);

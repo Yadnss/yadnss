@@ -1,3 +1,15 @@
+.skill-info .info-default {
+	color: #333333;
+}
+
+.skill-info .info-yellow {
+	color: #c09853;
+}
+
+.skill-info .info-orange {
+	color: #b94a48;
+}
+
 .skill-grid {
 	display: block;
 	position: relative;

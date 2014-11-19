@@ -57,7 +57,7 @@
 				sampleSkill = new Skills({ _id: '525a8422f6d0f87f0e407a35', job: { _id:'525a8422f6d0f87f0e407a34'}, tree_index: 0}),
 				sampleJobs = [sampleJob1, sampleJob2],
 				sampleSkills = [sampleSkill],
-				processedSkills = [{skill: sampleSkill, level: 0, active: false}];
+				processedSkills = [{skill: sampleSkill, level: 0}];
 
 			// Set the URL parameter
 			$stateParams.jobId = '525a8422f6d0f87f0e407a33';
