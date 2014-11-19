@@ -1,6 +1,6 @@
-<div class="skill-icon" ng-mouseover="active[0] = sicon">
+<div class="skill-icon">
   <span class="skill-crop">
-    <img src="modules/skillSimulator/img/{{ sicon.level > 0 ? 'hi' : 'lo' }}/{{ baseJob._id }}.png"/>
+    <img src="modules/skillSimulator/img/{{ sicon.level > -1 ? 'hi' : 'lo' }}/{{ build.baseJob }}.png"/>
   </span>
-  <span class="skill-badge badge">{{ sicon.level }}/{{ sicon.skill.levels.length }}</span>
+  <span class="skill-badge badge">{{ sicon.level + 1 }}/{{ levels.length }}</span>
 </div>

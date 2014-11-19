@@ -10,8 +10,7 @@
               <yd-skill
                 data-ng-repeat="sicon in sicons | filter:{ skill: { job: { _id: job._id } } }"
                 data-sicon="sicon"
-                data-base-job="jobs[0]"
-                data-active="active">
+                data-build="build">
               </yd-skill>
             </div>
           </accordion-group>
@@ -61,7 +60,7 @@
         </div>
 
         <div class="panel-body">
-          <yd-info data-sicon="active[0]" data-pve="pve"></yd-info>
+          <yd-info data-sicon="build.active" data-pve="pve"></yd-info>
         </div>
       </div>
     </div>

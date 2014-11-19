@@ -16,7 +16,7 @@ angular.module('skillSimulator').directive('ydInfo', ['$sce',
 
 		var replaceParams = function(result, value, index) {
 			// callback for _.reduce to replace params in description
-			return result.replace(RegExp('\\{' + index + '\\}', 'g'), value);
+			return result.replace(new RegExp('\\{' + index + '\\}', 'g'), value);
 		};
 
 		var formatDescription = function(skill, level, pve) {
@@ -39,18 +39,21 @@ angular.module('skillSimulator').directive('ydInfo', ['$sce',
 			scope.level = scope.sicon.level + 1; // account for 0 indexing
 
 			// lookup skill levels
-			scope.curlvl = scope.sicon.skill.levels[scope.level],
+			scope.curlvl = scope.sicon.skill.levels[scope.level];
 			scope.nxtlvl = scope.sicon.skill.levels[scope.level+1];
 			scope.curdesc_pve = scope.curlvl ? formatDescription(scope.sicon.skill, scope.curlvl, true) : null;
 			scope.curdesc_pvp = scope.curlvl ? formatDescription(scope.sicon.skill, scope.curlvl, false) : null;
 			scope.nxtdesc_pve = scope.nxtlvl ? formatDescription(scope.sicon.skill, scope.nxtlvl, true) : null;
 			scope.nxtdesc_pvp = scope.nxtlvl ? formatDescription(scope.sicon.skill, scope.nxtlvl, false) : null;
-			console.log(scope.nxtdesc);
 		};
 
 		var link = function(scope, elem, attrs) {
 			// Attach info change handler
 			scope.$watch('sicon', function(sicon) {
+				processSicon(scope);
+			});
+
+			scope.$watch('sicon.level', function(sicon) {
 				processSicon(scope);
 			});
 		};

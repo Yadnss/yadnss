@@ -5,22 +5,14 @@ angular.module('skillSimulator').controller('SkillSimulatorController', ['$scope
 	function($scope, $stateParams, Jobs, Skills) {
 		$scope.build = {
 			job: null,		/** Job build applies to */
+			baseJob: null,	/** Base job for build */
 			level: 70,		/** Character level */
 			skills: [],		/** Array of {skill: skillId, level: level} */
+			active: null	/** Currently focused skill icon */
 		};
 		$scope.pve = true;					/** switch to toggle pve/pvp info display */
 		$scope.sp_total = 187;				/** Amount of SP available to spend */
 		$scope.sp_limit = [116, 120, 116];	/** SP spending limit per tier */
-		$scope.active = [null];				/** Currently focused skill icon, must be an object or Array for scope binding */
-		$scope.skill_info = '';				/** html for skill info panel */
-
-		$scope.calc_skill_info = function() {
-			// Generate the info panel for the given skill icon
-			var sicon = $scope.active[0];
-			if (!sicon) { return null; }
-
-			$scope.skill_info = sicon.skill.name;
-		};
 
 		$scope.calc_sp_limit = function() {
 			// SP spending limit per class, taken from jobtable.dnt
@@ -55,12 +47,13 @@ angular.module('skillSimulator').controller('SkillSimulatorController', ['$scope
 				// Jobs are returned in ascending tier order
 				// Job for the build is the last in the list
 				$scope.build.job = _.last(jobs)._id;
+				$scope.build.baseJob = _.first(jobs)._id;
 
 				// Request skills related to the job
 				Skills.get({ jobIds: jobIds }, function(skills) {
 					// Make models for the skillicon directives
 					$scope.sicons = _.map(skills, function(skill) {
-						return { skill: skill, level: 0 };
+						return { skill: skill, level: -1 };
 					});
 
 					// Sort sicons by job then tree index
@@ -81,9 +74,5 @@ angular.module('skillSimulator').controller('SkillSimulatorController', ['$scope
 				});
 			});
 		};
-
-		$scope.$watch('active[0]', function() {
-			$scope.calc_skill_info();
-		});
 	}
 ]);
