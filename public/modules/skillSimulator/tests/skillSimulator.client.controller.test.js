@@ -54,9 +54,10 @@
 			// Create sample Job using the Jobs service
 			var sampleJob1 = new Jobs({ _id: '525a8422f6d0f87f0e407a33' }),
 				sampleJob2 = new Jobs({ _id: '525a8422f6d0f87f0e407a34' }),
-				sampleSkill = new Skills({ _id: '525a8422f6d0f87f0e407a35'}),
+				sampleSkill = new Skills({ _id: '525a8422f6d0f87f0e407a35', job: { _id:'525a8422f6d0f87f0e407a34'}, tree_index: 0}),
 				sampleJobs = [sampleJob1, sampleJob2],
-				sampleSkills = [sampleSkill];
+				sampleSkills = [sampleSkill],
+				processedSkills = [{skill: sampleSkill, level: 0, active: false}];
 
 			// Set the URL parameter
 			$stateParams.jobId = '525a8422f6d0f87f0e407a33';
@@ -72,7 +73,7 @@
 			// Test scope value
 			expect(scope.jobs).toEqualData(sampleJobs);
 			expect(scope.build.job).toEqual(sampleJob2._id);
-			expect(scope.skills).toEqualData(sampleSkills);
+			expect(scope.sicons).toEqualData(processedSkills);
 		}]));
 
 		it('$scope.calc_sp_limit() should correctly calculate SP limits at different levels', function() {

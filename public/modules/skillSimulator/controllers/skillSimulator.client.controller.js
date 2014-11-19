@@ -34,9 +34,41 @@ angular.module('skillSimulator').controller('SkillSimulatorController', ['$scope
 		$scope.find = function() {
 			$scope.jobs = Jobs.getFull({ jobId: $stateParams.jobId }, function(jobs) {
 				var idTemplate = '<% _.forEach(jobs, function(job) { %><%- job._id %>;<% }); %>',
-					jobIds = _.template(idTemplate, {jobs: jobs});
+					jobIds = _.template(idTemplate, {jobs: jobs})
+
+				// Save jobs in dictionary form for easy lookups later
+				$scope.jobsById = _.reduce(jobs, function(result, job) {
+						result[job._id] = job;
+						return result;
+					}, {});
+
+				// Jobs are returned in ascending tier order
+				// Job for the build is the last in the list
 				$scope.build.job = _.last(jobs)._id;
-				$scope.skills = Skills.get({ jobIds: jobIds });
+
+				// Request skills related to the job
+				Skills.get({ jobIds: jobIds }, function(skills) {
+					// Make models for the skillicon directives
+					$scope.sicons = _.map(skills, function(skill) {
+						return { skill: skill,level: 0, active: false };
+					});
+
+					// Sort sicons by job then tree index
+					$scope.sicons.sort(function(siconA, siconB) {
+						var jobA = $scope.jobsById[siconA.skill.job._id],
+							jobB = $scope.jobsById[siconB.skill.job._id];
+
+						return jobA.tier === jobB.tier ?
+							siconA.skill.tree_index - siconB.skill.tree_index :
+							jobA.tier - jobB.tier;
+					});
+
+					// Save sicons in dictionary form for easy lookups
+					$scope.siconsById = _.reduce($scope.sicons, function(result, sicon) {
+						result[sicon.skill._id] = sicon;
+						return result;
+					}, {});
+				});
 			});
 		};
 	}
