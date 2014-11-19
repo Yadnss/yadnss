@@ -3,10 +3,12 @@
 
       <!-- Middle column -->
       <div class="col-sm-4 col-sm-push-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">Main content</div>
-          <div class="panel-body">Some content</div>
-        </div>
+        <accordion data-close-others="true">
+          <accordion-group data-ng-repeat="job in jobs">
+            <accordion-heading>{{ job.name }}</accordion-heading>
+            {{ job.name }}
+          </accordion-group>
+        </accordion>
       </div>
 
       <!-- Left column -->
