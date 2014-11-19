@@ -34,7 +34,7 @@ angular.module('skillSimulator').controller('SkillSimulatorController', ['$scope
 		$scope.find = function() {
 			$scope.jobs = Jobs.getFull({ jobId: $stateParams.jobId }, function(jobs) {
 				var idTemplate = '<% _.forEach(jobs, function(job) { %><%- job._id %>;<% }); %>',
-					jobIds = _.template(idTemplate, {jobs: jobs})
+					jobIds = _.template(idTemplate, {jobs: jobs});
 
 				// Save jobs in dictionary form for easy lookups later
 				$scope.jobsById = _.reduce(jobs, function(result, job) {
