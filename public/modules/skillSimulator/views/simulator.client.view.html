@@ -6,7 +6,9 @@
         <accordion data-close-others="true">
           <accordion-group data-ng-repeat="job in jobs">
             <accordion-heading>{{ job.name }}</accordion-heading>
-            {{ job.name }}
+            <div class="skill-grid">
+              <yd-skill data-ng-repeat="sicon in sicons | filter:{ skill: { job: { _id: job._id } } }" data-sicon="sicon" data-base-job="jobs[0]"></yd-skill>
+            </div>
           </accordion-group>
         </accordion>
       </div>
