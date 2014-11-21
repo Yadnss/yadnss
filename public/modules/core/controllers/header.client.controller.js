@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus', 'SimulatorMenu',
-	function($scope, Authentication, Menus, SimulatorMenu) {
-		SimulatorMenu.makeMenu();
+angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus', 'BuildsMenu',
+	function($scope, Authentication, Menus, BuildsMenu) {
+		BuildsMenu.makeMenu();
 		$scope.authentication = Authentication;
 		$scope.isCollapsed = false;
 		$scope.menu = Menus.getMenu('topbar');

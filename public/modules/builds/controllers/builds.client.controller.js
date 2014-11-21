@@ -1,7 +1,7 @@
 'use strict';
 
 // Jobs controller
-angular.module('skillSimulator').controller('SkillSimulatorController', ['$scope', '$stateParams', 'Jobs', 'Skills',
+angular.module('builds').controller('BuildsController', ['$scope', '$stateParams', 'Jobs', 'Skills',
 	function($scope, $stateParams, Jobs, Skills) {
 		$scope.build = {
 			job: null,		/** Job build applies to */

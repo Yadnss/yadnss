@@ -1,4 +1,4 @@
 'use strict';
 
 // Configuring the skillSimulator module
-angular.module('skillSimulator').run(function() {});
+angular.module('builds').run(function() {});

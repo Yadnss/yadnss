@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('skillSimulator').directive('ydInfo', ['$sce',
+angular.module('builds').directive('ydInfo', ['$sce',
 	function($sce) {
 		// formatting codes in description string to translate to html
 		var codes = [
@@ -65,7 +65,7 @@ angular.module('skillSimulator').directive('ydInfo', ['$sce',
 				sicon: '=sicon',	/** sicon to display information for */
 				pve: '=pve',		/** display pve or pvp information? */
 			},
-			templateUrl: 'modules/skillSimulator/views/ydInfo.client.view.html'
+			templateUrl: 'modules/builds/views/ydInfo.client.view.html'
 		};
 	}
 ]);

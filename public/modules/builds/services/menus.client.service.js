@@ -1,7 +1,7 @@
 'use strict';
 
 // Menu service for generating dynamic simulator menu from Jobs in database
-angular.module('skillSimulator').factory('SimulatorMenu', ['Menus', 'Jobs',
+angular.module('builds').factory('BuildsMenu', ['Menus', 'Jobs',
 	function(Menus, Jobs) {
 
 		var makeMenu = function() {
@@ -26,7 +26,7 @@ angular.module('skillSimulator').factory('SimulatorMenu', ['Menus', 'Jobs',
 
 						t2Jobs = _.filter(jobs, function(job) { return job.parent && job.parent._id === t1Job._id; });
 						_.forEach(t2Jobs, function(t2Job) {
-							Menus.addSubMenuItem('topbar', baseJob.name, t2Job.name, 'simulator/' + t2Job._id);
+							Menus.addSubMenuItem('topbar', baseJob.name, t2Job.name, 'builds/create/' + t2Job._id);
 						});
 					});
 				});

@@ -2,9 +2,9 @@
 
 (function() {
 	// Jobs Controller Spec
-	describe('Skill Simulator Controller Tests', function() {
+	describe('Builds Controller Tests', function() {
 		// Initialize global variables
-		var SkillSimulatorController,
+		var BuildsController,
 		scope,
 		$httpBackend,
 		$stateParams,
@@ -45,7 +45,7 @@
 			$location = _$location_;
 
 			// Initialize the Jobs controller.
-			SkillSimulatorController = $controller('SkillSimulatorController', {
+			BuildsController = $controller('BuildsController', {
 				$scope: scope
 			});
 		}));

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('skillSimulator').directive('ydSkill', [
+angular.module('builds').directive('ydSkill', [
 	function() {
 		var link = function(scope, elem, attr) {
 			var index, x, y, margin;
@@ -120,7 +120,7 @@ angular.module('skillSimulator').directive('ydSkill', [
 				build: '=build', /** Information about current build */
 				sicon: '=sicon', /** sicon model for this directive */
 			},
-			templateUrl: 'modules/skillSimulator/views/ydSkill.client.view.html'
+			templateUrl: 'modules/builds/views/ydSkill.client.view.html'
 		};
 	}
 ]);
